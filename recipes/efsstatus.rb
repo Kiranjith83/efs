@@ -1,12 +1,15 @@
 ruby_block 'check_mount_target' do
     block do
       fsid = node['efs']['mounts']['/mnt']['fsid']
-      r = `aws efs describe-mount-targets --file-system-id fs-846865cd --region us-east-1`
+      region = node['efs']['mounts']['/mnt']['region']
+      r = `aws efs describe-mount-targets --file-system-id #{fsid} --region #{region}`
       data = JSON.parse(r)
-      if data['MountTargets'][0]['LifeCycleState'] == 'available'
-          Chef::Log.info("********** Available if - The instance's hostname is '#{data['MountTargets'][0]['LifeCycleState']}' **********")
-      else
-          Chef::Log.info("********** Else Available if - The instance's hostname is '#{data['MountTargets'][0]['LifeCycleState']}' **********")
+      numoftar = data['MountTargets'].each do |elem|
+        if elem['LifeCycleState'] == 'available'
+            Chef::Log.info("********** #{elem["MountTargetId"]} is Available **********")
+        else
+            Chef::Log.info("********** #{elem["MountTargetId"]} is Not Available **********")
+        end
       end
     end
   end
