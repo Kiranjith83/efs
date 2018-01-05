@@ -8,7 +8,6 @@ ruby_block 'check_mount_target' do
         data = JSON.parse `aws efs describe-mount-targets --file-system-id #{fsid} --region #{region}`
         checkArr = data["MountTargets"].collect { |ll| ll['LifeCycleState']}
         lifeCycState = (checkArr.uniq.size == 1 && checkArr.uniq[0] == "available") ? false : true
-        sleep 70
         if !lifeCycState 
             Chef::Log.info("**********MountTargets are Available **********")
         end
