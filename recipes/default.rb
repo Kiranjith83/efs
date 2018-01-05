@@ -5,8 +5,8 @@
 # Copyright 2017, Matt Kulka
 #
 
-package node['efs']['nfs-package']
-
+# package node['efs']['nfs-package']
+package nfs-utils 
 node['efs']['mounts'].each do |mount_point, attribs|
   mount_efs mount_point do
     fsid attribs['fsid']
