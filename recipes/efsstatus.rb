@@ -4,9 +4,9 @@ ruby_block 'check_mount_target' do
       r = `aws efs describe-mount-targets --file-system-id fs-846865cd --region us-east-1`
       data = JSON.parse(r)
       if data[:MountTargets][0][:LifeCycleState] == 'available'
-          Chef::Log.info("********** Available if - The instance's hostname is '#{data[:MountTargets][:LifeCycleState]}' **********")
+          Chef::Log.info("********** Available if - The instance's hostname is '#{data[:MountTargets][0][:LifeCycleState]}' **********")
       else
-          Chef::Log.info("********** Else Available if - The instance's hostname is '#{data[:MountTargets][:LifeCycleState]}' **********")
+          Chef::Log.info("********** Else Available if - The instance's hostname is '#{data[:MountTargets][0][:LifeCycleState]}' **********")
       end
     end
   end
