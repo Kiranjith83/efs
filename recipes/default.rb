@@ -6,7 +6,8 @@
 #
 
 # package node['efs']['nfs-package']
-package nfs-utils 
+package "nfs-utils" 
+
 node['efs']['mounts'].each do |mount_point, attribs|
   mount_efs mount_point do
     fsid attribs['fsid']
