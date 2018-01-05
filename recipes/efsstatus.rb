@@ -7,5 +7,6 @@ ruby_block 'check_mount_target' do
         Chef::Log.info("********** Available if - The instance's hostname is '#{data[:MountTargets][:LifeCycleState]}' **********")
     else
         Chef::Log.info("********** Else Available if - The instance's hostname is '#{data[:MountTargets][:LifeCycleState]}' **********")
+    end
   end
 end
