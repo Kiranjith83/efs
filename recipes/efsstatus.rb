@@ -7,7 +7,7 @@ ruby_block 'check_mount_target' do
       while lifeCycState
         data = JSON.parse `aws efs describe-mount-targets --file-system-id #{fsid} --region #{region}`
         checkArr = data["MountTargets"].collect { |ll| ll['LifeCycleState']}
-        lifeCycState = (data.uniq.size == 1 && data.uniq[0] == "available") ? false : true
+        lifeCycState = (checkArr.uniq.size == 1 && checkArr.uniq[0] == "available") ? false : true
         newCurTime = Time.now.to_i
         if (newCurTime-curTime) >= 600
             Chef::Log.info("The status check timed out...")
